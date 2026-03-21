@@ -6,17 +6,24 @@
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
-		"test": "vitest",
-		"cf-typegen": "wrangler types"
+		"test": "vitest run",
+		"test:e2e": "vitest run -c vitest.e2e.config.mts",
+		"test:coverage": "vitest run --coverage",
+		"cf-typegen": "wrangler types",
+		"codegen": "npx tsx scripts/generate-tools.ts"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.12.4",
 		"@types/node": "^25.5.0",
+		"@vitest/coverage-istanbul": "3.2.4",
+		"dotenv": "^17.3.1",
+		"ts-morph": "^27.0.2",
 		"typescript": "^5.5.2",
 		"vitest": "~3.2.0",
 		"wrangler": "^4.76.0"
 	},
 	"dependencies": {
+		"@icepanel/sdk": "^0.1.6",
 		"@modelcontextprotocol/sdk": "^1.26.0",
 		"agents": "^0.7.9",
 		"zod": "^4.3.6"

@@ -1,0 +1,30 @@
+import { z } from "zod/v4-mini";
+
+// Generated Zod Schemas
+export const ZodDomainsListRequest = z.object({ "landscapeId": z.string(), "versionId": z.string(), "filter": z.optional(z.object({ "handleId": z.optional(z.union([z.string(), z.array(z.string())])), "labels": z.optional(z.record(z.string(), z.string())), "name": z.optional(z.string()) })) });
+
+export const ZodDomainsListResponse = z.object({ "domains": z.array(z.object({ "commit": z.number(), "index": z.number(), "labels": z.record(z.string(), z.string()), "name": z.string(), "handleId": z.string(), "createdAt": z.string(), "createdBy": z.enum(["user", "api-key", "notification-key", "service"]), "createdById": z.string(), "deletedAt": z.optional(z.string()), "deletedBy": z.optional(z.enum(["user", "api-key", "notification-key", "service"])), "deletedById": z.optional(z.string()), "id": z.string(), "landscapeId": z.string(), "latestEntityId": z.optional(z.string()), "updatedAt": z.string(), "updatedBy": z.enum(["user", "api-key", "notification-key", "service"]), "updatedById": z.string(), "version": z.number(), "versionId": z.string() })) });
+
+export const ZodDomainsCreateRequest = z.object({ "landscapeId": z.string(), "versionId": z.string(), "body": z.object({ "commit": z.optional(z.number()), "index": z.optional(z.number()), "labels": z.optional(z.record(z.string(), z.string())), "name": z.string(), "handleId": z.optional(z.string()) }) });
+
+export const ZodDomainsCreateResponse = z.object({ "domain": z.object({ "commit": z.number(), "index": z.number(), "labels": z.record(z.string(), z.string()), "name": z.string(), "handleId": z.string(), "createdAt": z.string(), "createdBy": z.enum(["user", "api-key", "notification-key", "service"]), "createdById": z.string(), "deletedAt": z.optional(z.string()), "deletedBy": z.optional(z.enum(["user", "api-key", "notification-key", "service"])), "deletedById": z.optional(z.string()), "id": z.string(), "landscapeId": z.string(), "latestEntityId": z.optional(z.string()), "updatedAt": z.string(), "updatedBy": z.enum(["user", "api-key", "notification-key", "service"]), "updatedById": z.string(), "version": z.number(), "versionId": z.string() }) });
+
+export const ZodDomainsGetRequest = z.object({ "landscapeId": z.string(), "versionId": z.string(), "domainId": z.string() });
+
+export const ZodDomainsGetResponse = z.object({ "domain": z.object({ "commit": z.number(), "index": z.number(), "labels": z.record(z.string(), z.string()), "name": z.string(), "handleId": z.string(), "createdAt": z.string(), "createdBy": z.enum(["user", "api-key", "notification-key", "service"]), "createdById": z.string(), "deletedAt": z.optional(z.string()), "deletedBy": z.optional(z.enum(["user", "api-key", "notification-key", "service"])), "deletedById": z.optional(z.string()), "id": z.string(), "landscapeId": z.string(), "latestEntityId": z.optional(z.string()), "updatedAt": z.string(), "updatedBy": z.enum(["user", "api-key", "notification-key", "service"]), "updatedById": z.string(), "version": z.number(), "versionId": z.string() }) });
+
+export const ZodDomainsUpsertRequest = z.object({ "landscapeId": z.string(), "versionId": z.string(), "domainId": z.string(), "body": z.object({ "commit": z.optional(z.number()), "index": z.optional(z.number()), "labels": z.optional(z.record(z.string(), z.string())), "name": z.string(), "handleId": z.optional(z.string()) }) });
+
+export const ZodDomainsUpsertResponse = z.object({ "domain": z.object({ "commit": z.number(), "index": z.number(), "labels": z.record(z.string(), z.string()), "name": z.string(), "handleId": z.string(), "createdAt": z.string(), "createdBy": z.enum(["user", "api-key", "notification-key", "service"]), "createdById": z.string(), "deletedAt": z.optional(z.string()), "deletedBy": z.optional(z.enum(["user", "api-key", "notification-key", "service"])), "deletedById": z.optional(z.string()), "id": z.string(), "landscapeId": z.string(), "latestEntityId": z.optional(z.string()), "updatedAt": z.string(), "updatedBy": z.enum(["user", "api-key", "notification-key", "service"]), "updatedById": z.string(), "version": z.number(), "versionId": z.string() }) });
+
+export const ZodDomainsDeleteRequest = z.object({ "landscapeId": z.string(), "versionId": z.string(), "domainId": z.string() });
+
+export const ZodDomainsDeleteResponse = z.object({ "commit": z.number() });
+
+export const ZodDomainsUpdateRequest = z.object({ "landscapeId": z.string(), "versionId": z.string(), "domainId": z.string(), "body": z.object({ "commit": z.optional(z.number()), "index": z.optional(z.number()), "labels": z.optional(z.record(z.string(), z.string())), "name": z.optional(z.string()) }) });
+
+export const ZodDomainsUpdateResponse = z.object({ "domain": z.object({ "commit": z.number(), "index": z.number(), "labels": z.record(z.string(), z.string()), "name": z.string(), "handleId": z.string(), "createdAt": z.string(), "createdBy": z.enum(["user", "api-key", "notification-key", "service"]), "createdById": z.string(), "deletedAt": z.optional(z.string()), "deletedBy": z.optional(z.enum(["user", "api-key", "notification-key", "service"])), "deletedById": z.optional(z.string()), "id": z.string(), "landscapeId": z.string(), "latestEntityId": z.optional(z.string()), "updatedAt": z.string(), "updatedBy": z.enum(["user", "api-key", "notification-key", "service"]), "updatedById": z.string(), "version": z.number(), "versionId": z.string() }) });
+
+export const ZodDomainsExistsRequest = z.object({ "landscapeId": z.string(), "versionId": z.string(), "domainId": z.string() });
+
+export const ZodDomainsExistsResponse = z.object({ "append": z.record(z.string(), z.any()), "delete": z.record(z.string(), z.any()), "get": z.record(z.string(), z.any()), "getSetCookie": z.record(z.string(), z.any()), "has": z.record(z.string(), z.any()), "set": z.record(z.string(), z.any()), "forEach": z.record(z.string(), z.any()), "entries": z.record(z.string(), z.any()), "keys": z.record(z.string(), z.any()), "values": z.record(z.string(), z.any()), "__@iterator@630": z.record(z.string(), z.any()) });

@@ -1,41 +1,50 @@
 import { env, createExecutionContext, waitOnExecutionContext, SELF } from 'cloudflare:test';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import worker from '../src';
 
-describe('Hello World user worker', () => {
-	describe('request for /message', () => {
-		it('/ responds with "Hello, World!" (unit style)', async () => {
-			const request = new Request<unknown, IncomingRequestCfProperties>('http://example.com/message');
-			// Create an empty context to pass to `worker.fetch()`.
-			const ctx = createExecutionContext();
-			const response = await worker.fetch(request, env, ctx);
-			// Wait for all `Promise`s passed to `ctx.waitUntil()` to settle before running test assertions
-			await waitOnExecutionContext(ctx);
-			expect(await response.text()).toMatchInlineSnapshot(`"Hello, World!"`);
-		});
+vi.mock('../src/agent.js', () => {
+	const createMockFetch = () => vi.fn().mockImplementation(() => new Response('Missing Mcp-Session-Id', { status: 400 }));
+	return {
+		IcePanelMcp: {
+			serve: vi.fn().mockReturnValue({ fetch: createMockFetch() })
+		}
+	};
+});
 
-		it('responds with "Hello, World!" (integration style)', async () => {
-			const request = new Request('http://example.com/message');
-			const response = await SELF.fetch(request);
-			expect(await response.text()).toMatchInlineSnapshot(`"Hello, World!"`);
+describe('IcePanel MCP Worker', () => {
+	describe('request for /', () => {
+		it('responds with "Not found" 404', async () => {
+			const request = new Request('http://example.com/');
+			const ctx = createExecutionContext();
+			const response = await worker.fetch(request as any, env, ctx);
+			await waitOnExecutionContext(ctx);
+			expect(response.status).toBe(404);
+			expect(await response.text()).toBe('Not found');
 		});
 	});
 
-	describe('request for /random', () => {
-		it('/ responds with a random UUID (unit style)', async () => {
-			const request = new Request<unknown, IncomingRequestCfProperties>('http://example.com/random');
-			// Create an empty context to pass to `worker.fetch()`.
+	describe('request for /mcp', () => {
+		it('responds with 401 Unauthorized if no Auth header', async () => {
+			const request = new Request('http://example.com/mcp');
 			const ctx = createExecutionContext();
-			const response = await worker.fetch(request, env, ctx);
-			// Wait for all `Promise`s passed to `ctx.waitUntil()` to settle before running test assertions
+			const response = await worker.fetch(request as any, env, ctx);
 			await waitOnExecutionContext(ctx);
-			expect(await response.text()).toMatch(/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/);
+			expect(response.status).toBe(401);
+			expect(await response.text()).toBe('Unauthorized');
 		});
 
-		it('responds with a random UUID (integration style)', async () => {
-			const request = new Request('http://example.com/random');
-			const response = await SELF.fetch(request);
-			expect(await response.text()).toMatch(/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/);
+		it('passes Auth and reaches MCP layer (returns 400 Bad Request without proper MCP headers)', async () => {
+			const request = new Request('http://example.com/mcp', {
+				headers: {
+					'Authorization': 'Bearer test-token',
+					'Content-Type': 'application/json'
+				}
+			});
+			const ctx = createExecutionContext();
+			const response = await worker.fetch(request as any, env, ctx);
+			await waitOnExecutionContext(ctx);
+			expect(response.status).toBe(400);
+			expect(await response.text()).toContain('Mcp-Session-Id');
 		});
 	});
 });
