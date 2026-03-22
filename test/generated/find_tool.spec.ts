@@ -40,12 +40,17 @@ describe('find_tool tools (Generated)', () => {
             expect.objectContaining({ description: expect.any(String) }),
             expect.any(Function)
         );
+        expect(mockServer.registerTool).toHaveBeenCalledWith(
+            "batch_run_tool",
+            expect.objectContaining({ description: expect.any(String) }),
+            expect.any(Function)
+        );
 
         // Execute every tool callback to guarantee implementation line coverage
         for (const [name, callback] of registeredTools.entries()) {
-             const result = await callback({});
+             const result = await callback(name === 'batch_run_tool' ? { actions: [] } : {});
              expect(result).toBeDefined();
-             if ('find_tool' === 'find_tool' && name === 'find_tool') {
+             if (name === 'find_tool') {
                  // Hit defined arguments to capture 100% logic branches on args.query
                  const queryResult = await callback({ query: 'diagrams' });
                  const queryData = JSON.parse(queryResult.content[0].text);
@@ -55,7 +60,7 @@ describe('find_tool tools (Generated)', () => {
                  // Hit un-matchable conditions to evaluate the end of the short-circuit OR chain
                  await callback({ query: 'executes the' });
              }
-             if ('find_tool' === 'find_tool' && name === 'run_tool') {
+             if (name === 'run_tool') {
                  // Happy path: execute a known tool name through the proxy
                  const successResult = await callback({ tool_name: 'list_comments', args: {} });
                  const successData = JSON.parse(successResult.content[0].text);
@@ -81,18 +86,32 @@ describe('find_tool tools (Generated)', () => {
                  expect(errorData.error.message).toContain('Simulated SDK Error');
                  shouldThrow = false;
              }
+             if (name === 'batch_run_tool') {
+                 // Happy path: array of successful tools
+                 const successResult = await callback({ actions: [{ tool_name: 'list_comments', args: {} }] });
+                 expect(successResult.isError).toBe(false);
+                 const successData = JSON.parse(successResult.content[0].text);
+                 expect(successData[0].success).toBe(true);
+
+                 // Happy path without args fallback
+                 const fallbackResult = await callback({ actions: [{ tool_name: 'list_comments' }] });
+                 expect(fallbackResult.isError).toBe(false);
+                 const fallbackData = JSON.parse(fallbackResult.content[0].text);
+                 expect(fallbackData[0].success).toBe(true);
+
+                 // Mixed path: unknown tool fallback
+                 const mixedResult = await callback({ actions: [{ tool_name: 'invalid_xyz' }] });
+                 expect(mixedResult.isError).toBe(true);
+                 const mixedData = JSON.parse(mixedResult.content[0].text);
+                 expect(mixedData[0].success).toBe(false);
+
+                 // Error path: SDK payload failure
+                 shouldThrow = true;
+                 const errorResult = await callback({ actions: [{ tool_name: 'list_comments', args: {} }] });
+                 expect(errorResult.isError).toBe(true);
+                 shouldThrow = false;
+             }
         }
 
-        // Execute every tool callback forcing the catch blocks to guarantee 100% branch coverage
-        if ('find_tool' !== 'find_tool') {
-            shouldThrow = true;
-            for (const [name, callback] of registeredTools.entries()) {
-                 const result = await callback({});
-                 expect(result.isError).toBe(true);
-                 const errorData = JSON.parse(result.content[0].text);
-                 expect(errorData.success).toBe(false);
-                 expect(errorData.error.message).toContain("Simulated SDK Error");
-            }
-        }
     });
 });

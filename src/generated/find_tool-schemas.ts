@@ -10,3 +10,11 @@ export const ZodExecuteToolRequest = z.object({
   tool_name: z.string(),
   args: z.optional(z.record(z.string(), z.any()))
 });
+
+// Generated Zod Schema for batch_run_tool
+export const ZodBatchExecuteToolRequest = z.object({
+  actions: z.array(z.object({
+    tool_name: z.string(),
+    args: z.optional(z.record(z.string(), z.any()))
+  }))
+});

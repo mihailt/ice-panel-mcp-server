@@ -12,28 +12,28 @@ Using secrets defined in .env
 [vpw:debug] Adding `enable_nodejs_http_modules` compatibility flag during tests as this feature is needed to support the Vitest runner.
 [vpw:debug] Adding `enable_nodejs_perf_hooks_module` compatibility flag during tests as this feature is needed to support the Vitest runner.
 [vpw:info] Starting isolated runtimes for vitest.config.mts...
- [32mΓ£ô[39m test/generated/domains.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 79[2mms[22m[39m
- [32mΓ£ô[39m test/generated/versions.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 78[2mms[22m[39m
- [32mΓ£ô[39m test/generated/teams.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 79[2mms[22m[39m
- [32mΓ£ô[39m test/generated/catalog.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 78[2mms[22m[39m
- [32mΓ£ô[39m test/generated/shareLink.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 80[2mms[22m[39m
- [32mΓ£ô[39m test/generated/drafts.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 79[2mms[22m[39m
- [32mΓ£ô[39m test/generated/tags.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 79[2mms[22m[39m
- [32mΓ£ô[39m test/generated/comments.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 84[2mms[22m[39m
- [32mΓ£ô[39m test/generated/find_tool.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 82[2mms[22m[39m
- [32mΓ£ô[39m test/generated/flows.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 79[2mms[22m[39m
- [32mΓ£ô[39m test/generated/diagrams.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 78[2mms[22m[39m
- [32mΓ£ô[39m test/index.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 398[2mms[22m[39m
- [32mΓ£ô[39m test/generated/model.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 78[2mms[22m[39m
- [32mΓ£ô[39m test/generated/organizations.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 68[2mms[22m[39m
- [32mΓ£ô[39m test/generated/landscapes.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 57[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/diagrams.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 101[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/find_tool.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 101[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/flows.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 101[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/catalog.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 95[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/versions.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 94[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/drafts.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 95[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/tags.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 92[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/teams.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 93[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/comments.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 92[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/domains.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 100[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/model.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 100[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/shareLink.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 95[2mms[22m[39m
+ [32mΓ£ô[39m test/index.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 452[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/organizations.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 78[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/landscapes.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 75[2mms[22m[39m
  [32mΓ£ô[39m test/generated/index.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 18[2mms[22m[39m
- [32mΓ£ô[39m test/agent.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32mΓ£ô[39m test/agent.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 13[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m17 passed[39m[22m[90m (17)[39m
 [2m      Tests [22m [1m[32m22 passed[39m[22m[90m (22)[39m
-[2m   Start at [22m 20:53:09
-[2m   Duration [22m 7.43s[2m (transform 12.45s, setup 0ms, collect 42.35s, tests 1.51s, environment 2ms, prepare 12.90s)[22m
+[2m   Start at [22m 03:06:51
+[2m   Duration [22m 7.88s[2m (transform 13.28s, setup 0ms, collect 47.08s, tests 1.79s, environment 3ms, prepare 12.80s)[22m
 
 [34m % [39m[2mCoverage report from [22m[33mistanbul[39m
 -------------------|---------|----------|---------|---------|-------------------

@@ -1,29 +1,68 @@
 # IcePanel MCP Server
 
-MCP server for the [IcePanel](https://icepanel.io) API, built on Cloudflare Workers.
+MCP server for the [IcePanel](https://icepanel.io) API.
+
+## Architectural Documentation
+
+The source codebase has been seamlessly mapped through the C4 architectural abstraction directly integrating via **IcePanel Cloud**. 
+
+- **C4 Context (L1)**: Maps the physical boundaries separating the standard Developer environments, AI Agents, and the standard Host systems executing node instances bridging to the Remote API.
+- **C4 Containers (L2)**: Granular separation of the local REST Server interceptor versus the native TypeScript SDK layer passing boundaries explicitly.
+- **C4 Components (L3)**: Strict domain separation isolating the generic **Protocol Router Layer**, the strict **Zod Schema Validators**, the executing **Domain Capabilities**, and the outbound **Cloud Client**.
+
+### Execution Flows (L1-L3)
+
+Each structural map hosts autonomous, step-by-step chronological flows defining explicit component boundaries:
+1. **Developer Setup & Deployment Lifecycle** (`L1`): Traces physical environment instantiation variables mapping locally.
+2. **System Context Data Synchronization** (`L1`): Tracks the broad sequence of AI Agents requesting capability execution schemas mapping to remote mutations.
+3. **Schema Generation Deep-Dive** (`L2`): Outlines the local AST type-safe scanning extraction compiling models offline.
+4. **Internal API Capabilities Execution** (`L2`): Maps physical REST wrapper sequences passing secure payload arguments into the verified SDK logic endpoints.
+5. **Tool Execution Pipeline** (`L3`): Evaluates granular JSON-RPC strings hitting standard router edges, resolving against Zod schemas, into discrete structural domains.
+6. **Cloud Payload Transmission** (`L3`): Resolves strict capabilities mapping secure Bearer structures passing via physical HTTP interfaces terminating onto IcePanel graph clusters.
+
+> **Visual Demonstration**:
+>
+> ![IcePanel Sequence Execution Demo](./docs/assets/icepanel_flows_demo.webp)
+
+## Features
+
+The formal architecture of this repository across all execution contexts is rigorously modeled according to the C4 methodology.
+
+- **[System Context (L1)](docs/c4-context.md)**: Defines the overarching ecosystem, actors, and remote endpoint boundaries.
+- **[Container Architecture (L2)](docs/c4-container.md)**: The 9 major independent execution pipelines and configuration blocks.
+- **[Component Graph (L3)](docs/c4-component.md)**: A physical 1-to-1 graph comprehensively mapping every single TypeScript logic file, JSON schema, and Vitest suite across the entire repository.
+
+> 📊 **[View Interactive Architecture Diagrams on IcePanel](https://s.icepanel.io/W4aTobhklkvDMF/Lc23)**
+
+### L1: Context Architecture
+![Context Architecture](docs/assets/l1.png)
+
+### L2: Container Architecture
+![Container Architecture](docs/assets/l2.png)
+
+### L3: Component Architecture
+![Component Architecture](docs/assets/l3.png)
 
 ## Features
 
 - 🔍 **Zero-config discovery** — `find_tool` searches all tools by name, description, or module
-- ⚡ **Universal executor** — `execute_tool` dynamically invokes any discovered tool
+- ⚡ **Universal executor** — `run_tool` dynamically invokes any discovered tool
+- 🔄 **Batch pipelines** — `batch_run_tool` executes arrays of tools chronologically across domains
 - 📦 **Modular loading** — `?modules=diagrams,model` loads only what you need
-
-### Available Modules
-
-`catalog` · `comments` · `diagrams` · `domains` · `drafts` · `flows` · `landscapes` · `model` · `organizations` · `shareLink` · `tags` · `teams` · `versions`
 
 ## Usage (Client Configuration)
 
-Add to your MCP config (`mcp_config.json`, Cursor Settings, Claude Desktop, etc.):
+Add to your MCP config (`mcp_config.json`, Google Antigravity, Claude Desktop, etc.):
 
 ```json
 "ice-panel": {
-  "serverUrl": "https://<your-worker-name>.workers.dev/mcp",
+  "serverUrl": "http://localhost:8787/mcp", 
   "headers": {
     "Authorization": "Bearer <your-icepanel-api-token>"
   }
 }
 ```
+*(Note: If you run `pnpm run deploy` to host this serverless on Cloudflare, change the `serverUrl` to `https://<your-worker-name>.workers.dev/mcp`)*
 
 Generate an API token from [IcePanel Settings](https://app.icepanel.io).
 
@@ -63,40 +102,40 @@ pnpm run test:coverage
 ```
 
 ```text
--------------------|---------|----------|---------|---------|
-File               | % Stmts | % Branch | % Funcs | % Lines |
--------------------|---------|----------|---------|---------|
-All files          |     100 |      100 |     100 |     100 |
- ...log-schemas.ts |     100 |      100 |     100 |     100 |
- catalog.ts        |     100 |      100 |     100 |     100 |
- ...nts-schemas.ts |     100 |      100 |     100 |     100 |
- comments.ts       |     100 |      100 |     100 |     100 |
- ...ams-schemas.ts |     100 |      100 |     100 |     100 |
- diagrams.ts       |     100 |      100 |     100 |     100 |
- ...ins-schemas.ts |     100 |      100 |     100 |     100 |
- domains.ts        |     100 |      100 |     100 |     100 |
- drafts-schemas.ts |     100 |      100 |     100 |     100 |
- drafts.ts         |     100 |      100 |     100 |     100 |
- ...ool-schemas.ts |     100 |      100 |     100 |     100 |
- find_tool.ts      |     100 |      100 |     100 |     100 |
- flows-schemas.ts  |     100 |      100 |     100 |     100 |
- flows.ts          |     100 |      100 |     100 |     100 |
- index.ts          |     100 |      100 |     100 |     100 |
- ...pes-schemas.ts |     100 |      100 |     100 |     100 |
- landscapes.ts     |     100 |      100 |     100 |     100 |
- model-schemas.ts  |     100 |      100 |     100 |     100 |
- model.ts          |     100 |      100 |     100 |     100 |
- ...ons-schemas.ts |     100 |      100 |     100 |     100 |
- organizations.ts  |     100 |      100 |     100 |     100 |
- ...ink-schemas.ts |     100 |      100 |     100 |     100 |
- shareLink.ts      |     100 |      100 |     100 |     100 |
- tags-schemas.ts   |     100 |      100 |     100 |     100 |
- tags.ts           |     100 |      100 |     100 |     100 |
- teams-schemas.ts  |     100 |      100 |     100 |     100 |
- teams.ts          |     100 |      100 |     100 |     100 |
- ...ons-schemas.ts |     100 |      100 |     100 |     100 |
- versions.ts       |     100 |      100 |     100 |     100 |
--------------------|---------|----------|---------|---------|
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |     100 |      100 |     100 |     100 |                   
+ ...log-schemas.ts |     100 |      100 |     100 |     100 |                   
+ catalog.ts        |     100 |      100 |     100 |     100 |                   
+ ...nts-schemas.ts |     100 |      100 |     100 |     100 |                   
+ comments.ts       |     100 |      100 |     100 |     100 |                   
+ ...ams-schemas.ts |     100 |      100 |     100 |     100 |                   
+ diagrams.ts       |     100 |      100 |     100 |     100 |                   
+ ...ins-schemas.ts |     100 |      100 |     100 |     100 |                   
+ domains.ts        |     100 |      100 |     100 |     100 |                   
+ drafts-schemas.ts |     100 |      100 |     100 |     100 |                   
+ drafts.ts         |     100 |      100 |     100 |     100 |                   
+ ...ool-schemas.ts |     100 |      100 |     100 |     100 |                   
+ find_tool.ts      |     100 |      100 |     100 |     100 |                   
+ flows-schemas.ts  |     100 |      100 |     100 |     100 |                   
+ flows.ts          |     100 |      100 |     100 |     100 |                   
+ index.ts          |     100 |      100 |     100 |     100 |                   
+ ...pes-schemas.ts |     100 |      100 |     100 |     100 |                   
+ landscapes.ts     |     100 |      100 |     100 |     100 |                   
+ model-schemas.ts  |     100 |      100 |     100 |     100 |                   
+ model.ts          |     100 |      100 |     100 |     100 |                   
+ ...ons-schemas.ts |     100 |      100 |     100 |     100 |                   
+ organizations.ts  |     100 |      100 |     100 |     100 |                   
+ ...ink-schemas.ts |     100 |      100 |     100 |     100 |                   
+ shareLink.ts      |     100 |      100 |     100 |     100 |                   
+ tags-schemas.ts   |     100 |      100 |     100 |     100 |                   
+ tags.ts           |     100 |      100 |     100 |     100 |                   
+ teams-schemas.ts  |     100 |      100 |     100 |     100 |                   
+ teams.ts          |     100 |      100 |     100 |     100 |                   
+ ...ons-schemas.ts |     100 |      100 |     100 |     100 |                   
+ versions.ts       |     100 |      100 |     100 |     100 |                   
+-------------------|---------|----------|---------|---------|-------------------
 ```
 
 ### End-to-End Testing

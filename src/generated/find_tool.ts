@@ -3422,4 +3422,42 @@ export function registerFind_toolTools(server: McpServer, client: IcePanelClient
       }
     }
   );
+
+  server.registerTool(
+    "batch_run_tool",
+    {
+      description: "Executes multiple IcePanel tools sequentially. Pass an array of actions, each containing 'tool_name' and 'args'. Returns an array of results.",
+      inputSchema: schemas.ZodBatchExecuteToolRequest
+    },
+    async (params) => {
+      const results: any[] = [];
+      let hasError = false;
+
+      for (const action of params.actions) {
+        const entry = dispatchMap[action.tool_name];
+        if (!entry) {
+          results.push({ tool: action.tool_name, success: false, error: { message: `Unknown tool "${action.tool_name}".` } });
+          hasError = true;
+          continue;
+        }
+
+        try {
+          let target: any = client;
+          for (const ns of entry.namespace) {
+            target = target[ns];
+          }
+          const response = await target[entry.method](action.args || {});
+          results.push({ tool: action.tool_name, success: true, data: response });
+        } catch (error: any) {
+          results.push({ tool: action.tool_name, success: false, error: { message: error.message, status: error.statusCode } });
+          hasError = true;
+        }
+      }
+
+      return {
+        content: [{ type: "text", text: JSON.stringify(results, null, 2) }],
+        isError: hasError
+      };
+    }
+  );
 }

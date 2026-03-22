@@ -175,6 +175,14 @@ export const ZodExecuteToolRequest = z.object({
   tool_name: z.string(),
   args: z.optional(z.record(z.string(), z.any()))
 });
+
+// Generated Zod Schema for batch_run_tool
+export const ZodBatchExecuteToolRequest = z.object({
+  actions: z.array(z.object({
+    tool_name: z.string(),
+    args: z.optional(z.record(z.string(), z.any()))
+  }))
+});
 `;
     fs.writeFileSync(path.join(OUT_SRC_DIR, 'find_tool-schemas.ts'), findToolSchemasSrc);
 
@@ -264,6 +272,44 @@ export function registerFind_toolTools(server: McpServer, client: IcePanelClient
       }
     }
   );
+
+  server.registerTool(
+    "batch_run_tool",
+    {
+      description: "Executes multiple IcePanel tools sequentially. Pass an array of actions, each containing 'tool_name' and 'args'. Returns an array of results.",
+      inputSchema: schemas.ZodBatchExecuteToolRequest
+    },
+    async (params) => {
+      const results: any[] = [];
+      let hasError = false;
+
+      for (const action of params.actions) {
+        const entry = dispatchMap[action.tool_name];
+        if (!entry) {
+          results.push({ tool: action.tool_name, success: false, error: { message: \`Unknown tool "\${action.tool_name}".\` } });
+          hasError = true;
+          continue;
+        }
+
+        try {
+          let target: any = client;
+          for (const ns of entry.namespace) {
+            target = target[ns];
+          }
+          const response = await target[entry.method](action.args || {});
+          results.push({ tool: action.tool_name, success: true, data: response });
+        } catch (error: any) {
+          results.push({ tool: action.tool_name, success: false, error: { message: error.message, status: error.statusCode } });
+          hasError = true;
+        }
+      }
+
+      return {
+        content: [{ type: "text", text: JSON.stringify(results, null, 2) }],
+        isError: hasError
+      };
+    }
+  );
 }
 `;
     fs.writeFileSync(path.join(OUT_SRC_DIR, 'find_tool.ts'), findToolSrc);
@@ -272,7 +318,7 @@ export function registerFind_toolTools(server: McpServer, client: IcePanelClient
     // Generate test boundaries for find_tool + run_tool
     const findToolSpecSrc = generateSpecFile({
         resourceName: 'find_tool',
-        toolNames: ['find_tool', 'run_tool']
+        toolNames: ['find_tool', 'run_tool', 'batch_run_tool']
     });
     fs.writeFileSync(path.join(OUT_TEST_DIR, 'find_tool.spec.ts'), findToolSpecSrc);
 
