@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+.wrangler/
+.git/
+.agent/
+tmp/
+assets/

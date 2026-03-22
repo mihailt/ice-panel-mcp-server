@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  ice-panel-mcp:
+    build: .
+    image: ice-panel-mcp-server
+    container_name: ice-panel-mcp
+    env_file: .env
+    # Keep the container running in the background persistently
+    entrypoint: ["tail", "-f", "/dev/null"]
+    restart: unless-stopped
+    # Use standard interactive terminal binding
+    tty: true
+    stdin_open: true

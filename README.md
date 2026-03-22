@@ -50,19 +50,44 @@ The formal architecture of this repository across all execution contexts is rigo
 - 🔄 **Batch pipelines** — `batch_run_tool` executes arrays of tools chronologically across domains
 - 📦 **Modular loading** — `?modules=diagrams,model` loads only what you need
 
-## Usage (Client Configuration)
+## Deployment & Client Configuration
 
-Add to your MCP config (`mcp_config.json`, Google Antigravity, Claude Desktop, etc.):
+The server gracefully supports two explicit deployment strategies mapping strict execution environments dynamically natively utilizing blazing fast Server-Sent Events (SSE) securely natively across all MCP clients (`mcp_config.json`, Claude Desktop, Google Antigravity, etc):
 
+### Option A: Local Docker Proxy (Stdio JSON-RPC)
+Runs the server independently on your local machine using standard input/output (stdio) pipelines via Docker. This explicitly bypasses local network restrictions, corporate VPNs, and TLS interception organically natively.
+1. Configure your `.env` with `DOCKER_ICEPANEL_API_KEY=your_key`
+2. `docker compose up -d` (Boots the persistent STDIN local background proxy)
+
+**mcp_config.json Payload for Cursor/Claude Desktop:**
 ```json
 "ice-panel": {
-  "serverUrl": "http://localhost:8787/mcp", 
+  "command": "docker",
+  "args": [
+    "exec",
+    "-i",
+    "ice-panel-mcp",
+    "npx",
+    "tsx",
+    "src/stdio.ts"
+  ],
+  "disabled": false
+}
+```
+
+### Option B: Edge Serverless API (Cloudflare Workers SSE)
+Instantly binds the exact AST extraction architecture universally publicly onto your secure edge domain without requiring specific execution proxies gracefully deployed to zero-maintenance global endpoints.
+1. `pnpm run deploy` 
+
+**mcp_config.json Payload:**
+```json
+"ice-panel": {
+  "url": "https://ice-panel-mcp.<your-subdomain>.workers.dev/mcp",
   "headers": {
-    "Authorization": "Bearer <your-icepanel-api-token>"
+    "Authorization": "Bearer <YOUR_ICEPANEL_API_KEY>"
   }
 }
 ```
-*(Note: If you run `pnpm run deploy` to host this serverless on Cloudflare, change the `serverUrl` to `https://<your-worker-name>.workers.dev/mcp`)*
 
 Generate an API token from [IcePanel Settings](https://app.icepanel.io).
 
@@ -105,36 +130,42 @@ pnpm run test:coverage
 -------------------|---------|----------|---------|---------|-------------------
 File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 -------------------|---------|----------|---------|---------|-------------------
-All files          |     100 |      100 |     100 |     100 |                   
- ...log-schemas.ts |     100 |      100 |     100 |     100 |                   
- catalog.ts        |     100 |      100 |     100 |     100 |                   
- ...nts-schemas.ts |     100 |      100 |     100 |     100 |                   
- comments.ts       |     100 |      100 |     100 |     100 |                   
- ...ams-schemas.ts |     100 |      100 |     100 |     100 |                   
- diagrams.ts       |     100 |      100 |     100 |     100 |                   
- ...ins-schemas.ts |     100 |      100 |     100 |     100 |                   
- domains.ts        |     100 |      100 |     100 |     100 |                   
- drafts-schemas.ts |     100 |      100 |     100 |     100 |                   
- drafts.ts         |     100 |      100 |     100 |     100 |                   
- ...ool-schemas.ts |     100 |      100 |     100 |     100 |                   
- find_tool.ts      |     100 |      100 |     100 |     100 |                   
- flows-schemas.ts  |     100 |      100 |     100 |     100 |                   
- flows.ts          |     100 |      100 |     100 |     100 |                   
- index.ts          |     100 |      100 |     100 |     100 |                   
- ...pes-schemas.ts |     100 |      100 |     100 |     100 |                   
- landscapes.ts     |     100 |      100 |     100 |     100 |                   
- model-schemas.ts  |     100 |      100 |     100 |     100 |                   
- model.ts          |     100 |      100 |     100 |     100 |                   
- ...ons-schemas.ts |     100 |      100 |     100 |     100 |                   
- organizations.ts  |     100 |      100 |     100 |     100 |                   
- ...ink-schemas.ts |     100 |      100 |     100 |     100 |                   
- shareLink.ts      |     100 |      100 |     100 |     100 |                   
- tags-schemas.ts   |     100 |      100 |     100 |     100 |                   
- tags.ts           |     100 |      100 |     100 |     100 |                   
- teams-schemas.ts  |     100 |      100 |     100 |     100 |                   
- teams.ts          |     100 |      100 |     100 |     100 |                   
- ...ons-schemas.ts |     100 |      100 |     100 |     100 |                   
- versions.ts       |     100 |      100 |     100 |     100 |                   
+All files          |   99.09 |    94.25 |    98.8 |   99.08 |                   
+ src               |   68.75 |    72.22 |      50 |   68.75 |                   
+  agent.ts         |      50 |    33.33 |      50 |      50 | 13,28-35          
+  index.ts         |   91.66 |       90 |      50 |   91.66 | 22                
+  schemas.ts       |       0 |      100 |     100 |       0 | 4-61              
+  stdio.ts         |     100 |      100 |     100 |     100 |                   
+ src/generated     |     100 |      100 |     100 |     100 |                   
+  ...og-schemas.ts |     100 |      100 |     100 |     100 |                   
+  catalog.ts       |     100 |      100 |     100 |     100 |                   
+  ...ts-schemas.ts |     100 |      100 |     100 |     100 |                   
+  comments.ts      |     100 |      100 |     100 |     100 |                   
+  ...ms-schemas.ts |     100 |      100 |     100 |     100 |                   
+  diagrams.ts      |     100 |      100 |     100 |     100 |                   
+  ...ns-schemas.ts |     100 |      100 |     100 |     100 |                   
+  domains.ts       |     100 |      100 |     100 |     100 |                   
+  ...ts-schemas.ts |     100 |      100 |     100 |     100 |                   
+  drafts.ts        |     100 |      100 |     100 |     100 |                   
+  ...ol-schemas.ts |     100 |      100 |     100 |     100 |                   
+  find_tool.ts     |     100 |      100 |     100 |     100 |                   
+  flows-schemas.ts |     100 |      100 |     100 |     100 |                   
+  flows.ts         |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  ...es-schemas.ts |     100 |      100 |     100 |     100 |                   
+  landscapes.ts    |     100 |      100 |     100 |     100 |                   
+  model-schemas.ts |     100 |      100 |     100 |     100 |                   
+  model.ts         |     100 |      100 |     100 |     100 |                   
+  ...ns-schemas.ts |     100 |      100 |     100 |     100 |                   
+  organizations.ts |     100 |      100 |     100 |     100 |                   
+  ...nk-schemas.ts |     100 |      100 |     100 |     100 |                   
+  shareLink.ts     |     100 |      100 |     100 |     100 |                   
+  tags-schemas.ts  |     100 |      100 |     100 |     100 |                   
+  tags.ts          |     100 |      100 |     100 |     100 |                   
+  teams-schemas.ts |     100 |      100 |     100 |     100 |                   
+  teams.ts         |     100 |      100 |     100 |     100 |                   
+  ...ns-schemas.ts |     100 |      100 |     100 |     100 |                   
+  versions.ts      |     100 |      100 |     100 |     100 |                   
 -------------------|---------|----------|---------|---------|-------------------
 ```
 

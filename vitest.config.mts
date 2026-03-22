@@ -4,7 +4,7 @@ export default defineWorkersConfig({
 	test: {
 		coverage: {
 			provider: 'istanbul',
-			include: ['src/generated/**/*.ts'],
+			include: ['src/**/*.ts'],
 			reporter: ['text', 'json', 'html']
 		},
 		exclude: [

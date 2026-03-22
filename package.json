@@ -10,7 +10,10 @@
 		"test:e2e": "vitest run -c vitest.e2e.config.mts",
 		"test:coverage": "vitest run --coverage",
 		"cf-typegen": "wrangler types",
-		"codegen": "npx tsx scripts/generate-tools.ts"
+		"codegen": "npx tsx scripts/generate-tools.ts",
+		"docker:start": "npx tsx src/stdio.ts",
+		"docker:build": "docker build -t ice-panel-mcp-server .",
+		"docker:run": "docker run -i --env-file .env --rm ice-panel-mcp-server"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.12.4",
@@ -23,9 +26,12 @@
 		"wrangler": "^4.76.0"
 	},
 	"dependencies": {
+		"@hono/node-server": "^1.13.7",
 		"@icepanel/sdk": "^0.1.6",
 		"@modelcontextprotocol/sdk": "^1.26.0",
 		"agents": "^0.7.9",
+		"eventsource": "^4.1.0",
+		"hono": "^4.12.8",
 		"zod": "^4.3.6"
 	}
 }
