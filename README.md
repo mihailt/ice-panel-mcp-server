@@ -188,3 +188,12 @@ To run the live E2E test suite against the actual IcePanel API:
 The E2E suite contains 48 exhaustive assertions. Two tests are formally tracked as conditionally skipped (`it.skip`) to account for proven upstream constraints in the IcePanel API when authenticating via API Keys:
 1. **`delete_comments_replies`**: Throws a `401 Unauthorized` ("Comment reply was created by another user") because the backend lacks identity tracking for API Keys exclusively on this nested route.
 2. **`create_versions_reverts`**: Throws a `422 Unprocessable Entity` ("User not provided") because restoring a version demands a user profile that API Keys do not inherently possess.
+
+## Support
+
+If you found this tool helpful and want to sustainably support its development, you can send SOL to the author:
+`4er5rfqU5iQPswcmzorjUCnftu3BwfbgXohvgp8seLeu`
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
