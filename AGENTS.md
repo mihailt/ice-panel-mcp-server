@@ -20,6 +20,8 @@ For all limits and quotas, retrieve from the product's `/platform/limits/` page.
 | `pnpm test` | Run the Vitest unit tests inside cloudflare Isolates |
 | `pnpm run test:coverage` | Evaluates Istanbul 100% test coverage map |
 | `pnpm run test:e2e` | Runs E2E suite against actual API via MCP Client |
+| `pnpm run docker:build` | Build the native standalone MCP container |
+| `pnpm run docker:run` | Interactively test the native JSON-RPC pipeline locally |
 
 Run `wrangler types` after changing bindings in wrangler.jsonc.
 

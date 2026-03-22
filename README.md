@@ -82,7 +82,7 @@ Instantly binds the exact AST extraction architecture universally publicly onto 
 **mcp_config.json Payload:**
 ```json
 "ice-panel": {
-  "url": "https://ice-panel-mcp.<your-subdomain>.workers.dev/mcp",
+  "serverUrl": "https://ice-panel-mcp.<your-subdomain>.workers.dev/mcp",
   "headers": {
     "Authorization": "Bearer <YOUR_ICEPANEL_API_KEY>"
   }
@@ -104,6 +104,9 @@ This project includes the following `pnpm` scripts:
 | `pnpm run test:coverage` | Runs unit tests and yields the Istanbul code coverage breakdown. |
 | `pnpm run test:e2e` | Runs the live integration suite testing upstream IcePanel API connectivity. |
 | `pnpm run cf-typegen` | Updates Cloudflare environment types. |
+| `pnpm run docker:build` | Compiles the standalone STDIN Docker proxy image locally. |
+| `pnpm run docker:run` | Executes the container interactively bridging the STDIN pipeline. |
+| `pnpm run docker:start` | Unpacks the native Node.js `stdio` interceptor (entrypoint inside Docker). |
 
 ## Development
 
