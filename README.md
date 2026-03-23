@@ -48,6 +48,7 @@ The formal architecture of this repository across all execution contexts is rigo
 - 🔍 **Zero-config discovery** — `find_tool` searches all tools by name, description, or module
 - ⚡ **Universal executor** — `run_tool` dynamically invokes any discovered tool
 - 🔄 **Batch pipelines** — `batch_run_tool` executes arrays of tools chronologically across domains
+- 🚀 **Parallel pipelines** — `batch_run_parallel_tool` executes arrays of tools concurrently across domains
 - 📦 **Modular loading** — `?modules=diagrams,model` loads only what you need
 
 ## Deployment & Client Configuration
@@ -133,11 +134,11 @@ pnpm run test:coverage
 -------------------|---------|----------|---------|---------|-------------------
 File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 -------------------|---------|----------|---------|---------|-------------------
-All files          |   99.09 |    94.25 |    98.8 |   99.08 |                   
- src               |   68.75 |    72.22 |      50 |   68.75 |                   
-  agent.ts         |      50 |    33.33 |      50 |      50 | 13,28-35          
-  index.ts         |   91.66 |       90 |      50 |   91.66 | 22                
-  schemas.ts       |       0 |      100 |     100 |       0 | 4-61              
+All files          |     100 |      100 |     100 |     100 |                   
+ src               |     100 |      100 |     100 |     100 |                   
+  agent.ts         |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  schemas.ts       |     100 |      100 |     100 |     100 |                   
   stdio.ts         |     100 |      100 |     100 |     100 |                   
  src/generated     |     100 |      100 |     100 |     100 |                   
   ...og-schemas.ts |     100 |      100 |     100 |     100 |                   

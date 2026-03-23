@@ -45,10 +45,15 @@ describe('find_tool tools (Generated)', () => {
             expect.objectContaining({ description: expect.any(String) }),
             expect.any(Function)
         );
+        expect(mockServer.registerTool).toHaveBeenCalledWith(
+            "batch_run_parallel_tool",
+            expect.objectContaining({ description: expect.any(String) }),
+            expect.any(Function)
+        );
 
         // Execute every tool callback to guarantee implementation line coverage
         for (const [name, callback] of registeredTools.entries()) {
-             const result = await callback(name === 'batch_run_tool' ? { actions: [] } : {});
+             const result = await callback((name === 'batch_run_tool' || name === 'batch_run_parallel_tool') ? { actions: [] } : {});
              expect(result).toBeDefined();
              if (name === 'find_tool') {
                  // Hit defined arguments to capture 100% logic branches on args.query
@@ -86,7 +91,7 @@ describe('find_tool tools (Generated)', () => {
                  expect(errorData.error.message).toContain('Simulated SDK Error');
                  shouldThrow = false;
              }
-             if (name === 'batch_run_tool') {
+             if (name === 'batch_run_tool' || name === 'batch_run_parallel_tool') {
                  // Happy path: array of successful tools
                  const successResult = await callback({ actions: [{ tool_name: 'list_comments', args: {} }] });
                  expect(successResult.isError).toBe(false);

@@ -39,7 +39,9 @@ Run `wrangler types` after changing bindings in wrangler.jsonc.
 - **Istanbul Coverage**: Standard `v8` coverage crashes in Cloudflare isolates. This project natively uses `@vitest/coverage-istanbul`. If tests fail line coverage, verify proxy simulations in `scripts/generator/spec-emitter.ts`.
 - **Live E2E Verification**: Real backend interactions are maintained in `test/e2e/e2e.spec.ts`. If modifying async tools (like `delete_versions`), maintain internal polling loops relying on `get_versions` to safely bypass Cloudflare/Upstream 403 lock conditions.
 - **Modular Load**: The IcePanel server is modularized. To evaluate unique endpoints individually, supply `?modules=comments,tags` in the server startup string.
-- **Agent Discovery**: If no modules are specified, the server connects zero-config mapping only the generic `find_tool`. The `find_tool` autonomously exposes the required MCP JSON strings when agents query it dynamically.
+- **Agent Discovery (find_tool)**: If no modules are specified, the server connects zero-config mapping only the generic `find_tool`. This autonomously exposes the underlying REST capability catalog so agents can evaluate required actions dynamically.
+- **Universal Execution (run_tool)**: To physically execute any discovered endpoint natively through the SDK, agents invoke `run_tool` referencing the exact module method string.
+- **Batch Execution**: The server provides `batch_run_tool` and `batch_run_parallel_tool` to chronologically or concurrently execute multiple operations, minimizing network roundtrips.
 
 ## Node.js Compatibility
 

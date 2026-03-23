@@ -3460,4 +3460,39 @@ export function registerFind_toolTools(server: McpServer, client: IcePanelClient
       };
     }
   );
+
+  server.registerTool(
+    "batch_run_parallel_tool",
+    {
+      description: "Executes multiple IcePanel tools in parallel. Pass an array of actions, each containing 'tool_name' and 'args'. Returns an array of results.",
+      inputSchema: schemas.ZodBatchExecuteToolRequest
+    },
+    async (params) => {
+      const promises = params.actions.map(async (action) => {
+        const entry = dispatchMap[action.tool_name];
+        if (!entry) {
+          return { tool: action.tool_name, success: false, error: { message: `Unknown tool "${action.tool_name}".` } };
+        }
+
+        try {
+          let target: any = client;
+          for (const ns of entry.namespace) {
+            target = target[ns];
+          }
+          const response = await target[entry.method](action.args || {});
+          return { tool: action.tool_name, success: true, data: response };
+        } catch (error: any) {
+          return { tool: action.tool_name, success: false, error: { message: error.message, status: error.statusCode } };
+        }
+      });
+
+      const results = await Promise.all(promises);
+      const hasError = results.some(r => !r.success);
+
+      return {
+        content: [{ type: "text", text: JSON.stringify(results, null, 2) }],
+        isError: hasError
+      };
+    }
+  );
 }

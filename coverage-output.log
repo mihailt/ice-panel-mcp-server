@@ -1,5 +1,5 @@
 
-> ice-panel-mcp-server@0.0.0 test:coverage C:\Users\mihai\Documents\Projects\IcePanel\ice-panel-mcp-server
+> ice-panel-mcp-server@0.1.0 test:coverage C:\Users\mihai\Documents\Projects\IcePanel\ice-panel-mcp-server
 > vitest run --coverage
 
 
@@ -12,40 +12,41 @@ Using secrets defined in .env
 [vpw:debug] Adding `enable_nodejs_http_modules` compatibility flag during tests as this feature is needed to support the Vitest runner.
 [vpw:debug] Adding `enable_nodejs_perf_hooks_module` compatibility flag during tests as this feature is needed to support the Vitest runner.
 [vpw:info] Starting isolated runtimes for vitest.config.mts...
- [32mΓ£ô[39m test/stdio.spec.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3814[2mms[22m[39m
-   [33m[2mΓ£ô[22m[39m Stdio Protocol Integration[2m > [22mseamlessly instantiates native MCP bindings bypassing Cloudflare edge entirely [33m 3380[2mms[22m[39m
- [32mΓ£ô[39m test/generated/flows.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 184[2mms[22m[39m
- [32mΓ£ô[39m test/generated/domains.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 183[2mms[22m[39m
- [32mΓ£ô[39m test/generated/shareLink.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 185[2mms[22m[39m
- [32mΓ£ô[39m test/generated/versions.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 181[2mms[22m[39m
- [32mΓ£ô[39m test/generated/drafts.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 183[2mms[22m[39m
- [32mΓ£ô[39m test/generated/catalog.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 186[2mms[22m[39m
- [32mΓ£ô[39m test/generated/comments.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 188[2mms[22m[39m
- [32mΓ£ô[39m test/generated/diagrams.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 185[2mms[22m[39m
- [32mΓ£ô[39m test/generated/teams.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 192[2mms[22m[39m
- [32mΓ£ô[39m test/generated/tags.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 182[2mms[22m[39m
- [32mΓ£ô[39m test/generated/find_tool.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 181[2mms[22m[39m
- [32mΓ£ô[39m test/generated/model.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 170[2mms[22m[39m
- [32mΓ£ô[39m test/index.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 879[2mms[22m[39m
- [32mΓ£ô[39m test/generated/landscapes.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 103[2mms[22m[39m
- [32mΓ£ô[39m test/generated/organizations.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 130[2mms[22m[39m
- [32mΓ£ô[39m test/generated/index.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 26[2mms[22m[39m
- [32mΓ£ô[39m test/agent.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32mΓ£ô[39m test/stdio.spec.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2465[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Stdio Protocol Integration[2m > [22mseamlessly instantiates native MCP bindings bypassing Cloudflare edge entirely [33m 2081[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/catalog.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 112[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/versions.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 109[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/shareLink.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 110[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/teams.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 111[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/domains.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 111[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/tags.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 110[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/comments.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 110[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/find_tool.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 107[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/flows.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 110[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/drafts.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 108[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/diagrams.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 113[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/model.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 110[2mms[22m[39m
+ [32mΓ£ô[39m test/schemas.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 172[2mms[22m[39m
+ [32mΓ£ô[39m test/index.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 516[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/organizations.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 76[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/landscapes.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 80[2mms[22m[39m
+ [32mΓ£ô[39m test/agent.spec.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32mΓ£ô[39m test/generated/index.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 18[2mms[22m[39m
 
-[2m Test Files [22m [1m[32m18 passed[39m[22m[90m (18)[39m
-[2m      Tests [22m [1m[32m23 passed[39m[22m[90m (23)[39m
-[2m   Start at [22m 09:45:26
-[2m   Duration [22m 13.35s[2m (transform 19.49s, setup 0ms, collect 76.82s, tests 7.17s, environment 4ms, prepare 28.05s)[22m
+[2m Test Files [22m [1m[32m19 passed[39m[22m[90m (19)[39m
+[2m      Tests [22m [1m[32m28 passed[39m[22m[90m (28)[39m
+[2m   Start at [22m 20:51:47
+[2m   Duration [22m 8.04s[2m (transform 15.77s, setup 0ms, collect 47.50s, tests 4.68s, environment 4ms, prepare 16.57s)[22m
 
 [34m % [39m[2mCoverage report from [22m[33mistanbul[39m
 -------------------|---------|----------|---------|---------|-------------------
 File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 -------------------|---------|----------|---------|---------|-------------------
-All files          |   99.09 |    94.25 |    98.8 |   99.08 |                   
- src               |   68.75 |    72.22 |      50 |   68.75 |                   
-  agent.ts         |      50 |    33.33 |      50 |      50 | 13,28-35          
-  index.ts         |   91.66 |       90 |      50 |   91.66 | 22                
-  schemas.ts       |       0 |      100 |     100 |       0 | 4-61              
+All files          |     100 |      100 |     100 |     100 |                   
+ src               |     100 |      100 |     100 |     100 |                   
+  agent.ts         |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  schemas.ts       |     100 |      100 |     100 |     100 |                   
   stdio.ts         |     100 |      100 |     100 |     100 |                   
  src/generated     |     100 |      100 |     100 |     100 |                   
   ...og-schemas.ts |     100 |      100 |     100 |     100 |                   

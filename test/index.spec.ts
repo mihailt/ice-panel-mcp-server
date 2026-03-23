@@ -46,5 +46,15 @@ describe('IcePanel MCP Worker', () => {
 			expect(response.status).toBe(400);
 			expect(await response.text()).toContain('Mcp-Session-Id');
 		});
+
+		it('parses modules query parameter correctly', async () => {
+			const request = new Request('http://example.com/mcp?modules=tags, comments', {
+				headers: { 'Authorization': 'Bearer test-token' }
+			});
+			const ctx = createExecutionContext() as any;
+			await worker.fetch(request as any, env, ctx);
+			await waitOnExecutionContext(ctx);
+			expect(ctx.props.modules).toEqual(['tags', 'comments']);
+		});
 	});
 });
